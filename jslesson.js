@@ -1,100 +1,84 @@
 "use strict";
 
-let numberOfFilms;
-// Практика 3 function
-
-function start() {
-  numberOfFilms = +prompt("Скольк фильмов вы уже посмотрели?", "");
-
-  while (numberOfFilms == "" || numberOfFilms == null || isNaN(numberOfFilms)) {
-    numberOfFilms = +prompt("Скольк фильмов вы уже посмотрели?", "");
-  }
-}
-start();
+// Практика 4
 
 const personalMovieDB = {
-  count: numberOfFilms,
+  count: 0,
   movies: {},
   actor: {},
   genres: [],
-  privat: false,
+  privat: true,
+  writeYourGenres: function () {
+    for (let i = 1; i <= 3; i++) {
+      let gener = prompt(`Ваш любимый жанр фильма под номером ${i}`);
+      if(gener === "" || gener == null){
+        console.log("Вы ввели некоректные данные или не ввели их вовсе");
+        i--;
+      }else{
+        personalMovieDB.genres[i - 1] = gener;
+      }
+    }
+    personalMovieDB.genres.forEach((item, i) => {
+      console.log(`Любимый жанр №${i + 1} - это ${item}`);
+    });
+  },
+  rememberMyFilms: function () {
+    for (let i = 0; i < 1; i++) {
+      const a = prompt("Один из понравившихся", ""),
+        b = prompt("ocenka", "");
+
+      if (a != null && b != null && a != "" && b != "" && a.length < 50) {
+        personalMovieDB.movies[a] = b;
+        console.log("done");
+      } else {
+        console.log("error!");
+        i--;
+      }
+    }
+  },
+  start: function () {
+    personalMovieDB.count = +prompt("Скольк фильмов вы уже посмотрели?", "");
+
+    while (
+      personalMovieDB.count == "" ||
+      personalMovieDB.count == null ||
+      isNaN(personalMovieDB.count)
+    ) {
+      personalMovieDB.count = +prompt("Скольк фильмов вы уже посмотрели?", "");
+    }
+  },
+  detectPersonalLvl: function () {
+    if (personalMovieDB.count < 10) {
+      console.log("Malo");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+      console.log("norm");
+    } else if (personalMovieDB.count >= 30) {
+      console.log("nihuia sebe");
+    } else {
+      console.log("eroree");
+    }
+  },
+  showMyDB: function () {
+    if (personalMovieDB.privat == false) {
+      console.log(personalMovieDB);
+    } else {
+      console.log("Private status off");
+    }
+  },
+  toggleVisibleMyDB: function (callback) {
+    if (personalMovieDB.privat) {
+      personalMovieDB.privat = true;
+    } else {
+      personalMovieDB.privat = false;
+    }
+    callback(personalMovieDB.showMyDB());
+  },
 };
 
-function writeYourGenres() {
-  for (let i = 1; i <= 3; i++) {
-    personalMovieDB.genres[i - 1] = prompt(
-      `Ваш любимый жанр фильма под номером ${i}`
-    );
-  }
-}
+personalMovieDB.start();
+personalMovieDB.rememberMyFilms();
+personalMovieDB.writeYourGenres();
+personalMovieDB.detectPersonalLvl();
+personalMovieDB.toggleVisibleMyDB();
 
-// Автоматизация с помошью цикла (добавлены функции!)
-// первый способ цыкла!!!!!!!!!!!!!!!!!
-
-function rememberMyFilms() {
-  for (let i = 0; i < 1; i++) {
-    const a = prompt("Один из понравившихся", ""),
-      b = prompt("ocenka", "");
-
-    if (a != null && b != null && a != "" && b != "" && a.length < 50) {
-      personalMovieDB.movies[a] = b;
-      console.log("done");
-    } else {
-      console.log("error!");
-      i--;
-    }
-  }
-}
-rememberMyFilms();
-writeYourGenres();
-// Второй способ цыкла!!!!!!!!!!!!!!!!!!!!!!!!1
-// let i = 0;
-// while (i < 1) {
-//   const a = prompt("Один из понравившихся", ""),
-//   b = prompt("ocenka", "");
-
-//   if (a != null && b != null && a != "" && b != "" && a.length < 50) {
-//         personalMovieDB.movies[a] = b;
-//         console.log("done");
-//         break;
-//       } else {
-//         console.log("error!");
-//         i--;
-//       }
-//     }
-
-//// Третий способ!!!!!!!!!!!!!!!!1
-// let i = 0;
-// do {
-//   const a = prompt("Один из понравившихся", ""),
-//     b = prompt("ocenka", "");
-//   if (a != null && b != null && a != "" && b != "" && a.length < 50) {
-//     personalMovieDB.movies[a] = b;
-//     console.log("done");
-//     break;
-//   } else {
-//     console.log("error!");
-//     i--;
-//   }
-// } while (i < 1);
-function detectPersonalLvl() {
-  if (personalMovieDB.count < 10) {
-    console.log("Malo");
-  } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
-    console.log("norm");
-  } else if (personalMovieDB.count >= 30) {
-    console.log("nu=ihuia sebe");
-  } else {
-    console.log("eroree");
-  }
-}
-detectPersonalLvl();
-
-function showMyDB() {
-  if (personalMovieDB.privat == false) {
-    console.log(personalMovieDB);
-  } else {
-    console.log("Private status off");
-  }
-}
-showMyDB();
+// personalMovieDB.showMyDB();
