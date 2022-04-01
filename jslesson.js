@@ -11,10 +11,10 @@ const personalMovieDB = {
   writeYourGenres: function () {
     for (let i = 1; i <= 3; i++) {
       let gener = prompt(`Ваш любимый жанр фильма под номером ${i}`);
-      if(gener === "" || gener == null){
+      if (gener === "" || gener == null) {
         console.log("Вы ввели некоректные данные или не ввели их вовсе");
         i--;
-      }else{
+      } else {
         personalMovieDB.genres[i - 1] = gener;
       }
     }
@@ -66,7 +66,7 @@ const personalMovieDB = {
     }
   },
   toggleVisibleMyDB: function (callback) {
-    if (personalMovieDB.privat) {
+    if (personalMovieDB.privat == false) {
       personalMovieDB.privat = true;
     } else {
       personalMovieDB.privat = false;
@@ -80,5 +80,3 @@ personalMovieDB.rememberMyFilms();
 personalMovieDB.writeYourGenres();
 personalMovieDB.detectPersonalLvl();
 personalMovieDB.toggleVisibleMyDB();
-
-// personalMovieDB.showMyDB();
